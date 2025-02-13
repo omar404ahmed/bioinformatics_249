@@ -26,7 +26,6 @@ Exact matches found: 2
 Inexact matches found: 62
 Processing time: 1336.86 seconds
 Peak memory usage: 2456560.00 MB
-
 ```
 
 After discussion with colleagues, it was ascertained that the exact_match method shows results that are expected and accurate. However, inexact matches are slightly inflated. This can be attributed to the approach for Levenshtein distance, which has resulted in overcounting as the mutations in current implementation are treated as independant. Furthermore, overlaps resulted in a sliding window effect where a single variant Alu sequence could be counted multiple times.
