@@ -207,7 +207,7 @@ def main():
             
             # Report memory usage
             memory_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024  # Convert to MB
-            print(f"Peak memory usage: {memory_usage:.2f} MB")
+            print(f"Peak memory usage: {memory_usage:.2f} KB")
             
         except Exception as e:
             print(f"Error processing {assembly}: {str(e)}")
