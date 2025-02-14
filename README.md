@@ -39,9 +39,11 @@ Processing time: 1386.78 seconds
 Peak memory usage: 1456656.00 KB
 ```
 
-After discussion with colleagues, it was ascertained that the exact_match method shows results that are expected and accurate. However, inexact matches are slightly inflated. This can be attributed to the approach for Levenshtein distance, which has resulted in overcounting as the mutations in current implementation are treated as independant. Furthermore, overlaps resulted in a sliding window effect where a single variant Alu sequence could be counted multiple times.
+After discussion with colleagues, it was ascertained that the exact_match method shows results that are expected and accurate. However, inexact matches are slightly inflated. This can be attributed to the approach for Levenshtein distance, which has resulted in overcounting as the mutations in current implementation are treated as independant. Furthermore, overlaps resulted in a sliding window effect where a single variant AluY sequence could be counted multiple times.
 
-The GRCh38 assembly took approximately 25 minutes to process with a peak memory usage of 1.003 GB, while the T2T CHM13v2.0 assembly processed faster at 23 minutes but required nearly double the memory at 1.4 GB. This higher memory requirement for T2T likely reflects its more complete coverage of complex genomic regions.
+#### After obtaining the results and minor data processing we arrive at following results, GRCh38 assembly had 13 inexact matches with max_mismatches = 1 and T2T CHM13v2.0 assembly had 16 inexact matches with max_mismatches = 1. 
+
+The GRCh38 assembly took approximately 25 minutes to process with a peak memory usage of 1.003 GB, while the T2T CHM13v2.0 assembly processed faster at 23 minutes but required nearly double the memory at 1.456 GB. This higher memory requirement for T2T likely reflects its more complete coverage of complex genomic regions.
 From a biological perspective, the T2T assembly yielded more total matches (64) compared to GRCh38 (53), suggesting better capture of Alu sequences in previously unresolved regions. Both assemblies showed a strong preference for inexact matches, with T2T having a slightly higher proportion (97% vs 94% in GRCh38). This aligns with the biological understanding that Alu elements accumulate mutations over time.
 
 ### Matches found in GRCh38 assembly ([Exact_Matches](hg38_exact_matches.tsv))([Inexact_Matches](hg38_inexact_matches.tsv))
