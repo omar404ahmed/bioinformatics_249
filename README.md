@@ -44,9 +44,9 @@ After discussion with colleagues, it was ascertained that the exact_match method
 The GRCh38 assembly took approximately 25 minutes to process with a peak memory usage of 1.003 GB, while the T2T CHM13v2.0 assembly processed faster at 23 minutes but required nearly double the memory at 1.4 GB. This higher memory requirement for T2T likely reflects its more complete coverage of complex genomic regions.
 From a biological perspective, the T2T assembly yielded more total matches (64) compared to GRCh38 (53), suggesting better capture of Alu sequences in previously unresolved regions. Both assemblies showed a strong preference for inexact matches, with T2T having a slightly higher proportion (97% vs 94% in GRCh38). This aligns with the biological understanding that Alu elements accumulate mutations over time.
 
-### Matches found in GRCh38 assembly ([Exact_Matches](hg38_exact_matches))([Inexact_Matches](hg38_inexact_matches))
+### Matches found in GRCh38 assembly ([Exact_Matches](hg38_exact_matches.tsv))([Inexact_Matches](hg38_inexact_matches.tsv))
 
-### Matches found in T2T CHM13v2.0 assembly ([Exact_Matches](T2T_exact_matches))([Inexact_Matches](T2T_inexact_matches))
+### Matches found in T2T CHM13v2.0 assembly ([Exact_Matches](T2T_exact_matches.tsv))([Inexact_Matches](T2T_inexact_matches.tsv))
 
 [^1]: Claude ver3.5 Sonnet was used to assist in making the algorithm capable of running across multiple cores. (Prompt_Given: Suggest methods to implement multi-core processing for achieving the objective keeping in mind the limitations of main memory.) Based on its suggestions, the ```process_assembly``` function was designed to keep CPU usage in the range 80 - 93% with one core left for system processes.
 
