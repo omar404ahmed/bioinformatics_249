@@ -17,7 +17,6 @@ class AluYFinder:
         length = 0
         lps = [0] * len(self.pattern)
         i = 1
-        #Compute longest proper prefix/border
         while i < len(self.pattern):
             if self.pattern[i] == self.pattern[length]:
                 length += 1
@@ -32,7 +31,6 @@ class AluYFinder:
         return lps
 
     def exact_match(self, text: str) -> List[Tuple[int, int]]:
-        #Exact matches in text using KMP
         matches = []
         i = 0
         j = 0
@@ -55,7 +53,6 @@ class AluYFinder:
         return matches
 
     def inexact_match(self, text: str, max_mismatches: int = 1) -> List[Tuple[int, int, int]]:
-        #Matches with up to max_mismatches mismatches
         matches = []
         text = text.upper()
         n = len(text)
@@ -115,7 +112,7 @@ def process_chunk(args):
     ]
     
     inexact_matches = [
-        (chr_name, start + chunk_start, end + chunk_start) 
+        (chr_name, start + chunk_start, end + chunk_start, mismatches) 
         for start, end, mismatches in finder.inexact_match(sequence)
     ]
     
@@ -150,7 +147,6 @@ def process_fasta_file(file_handle, chunk_size: int) -> Generator[Tuple[str, str
             current_seq = []
             chunk_start = 0
         else:
-            # Store sequence as-is to preserve original case
             current_seq.append(line.strip())
     
     if current_chr and current_seq:
@@ -159,29 +155,49 @@ def process_fasta_file(file_handle, chunk_size: int) -> Generator[Tuple[str, str
             chunk = sequence[i:i + chunk_size]
             yield current_chr, chunk, i
 
+def write_matches_to_file(matches: List[Tuple], filename: str, match_type: str):
+    """Write matches to a tab-delimited file."""
+    os.makedirs('results', exist_ok=True)
+    output_file = os.path.join('results', filename)
+    
+    with open(output_file, 'w') as f:
+        # Write header
+        if match_type == 'exact':
+            f.write("Chromosome\tStart\tEnd\n")
+        else:  # inexact
+            f.write("Chromosome\tStart\tEnd\tMismatches\n")
+            
+        # Write matches
+        for match in matches:
+            if match_type == 'exact':
+                chr_name, start, end = match
+                f.write(f"{chr_name}\t{start}\t{end}\n")
+            else:  # inexact
+                chr_name, start, end, mismatches = match
+                f.write(f"{chr_name}\t{start}\t{end}\t{mismatches}\n")
+
 def process_assembly(filename: str, aluy_sequence: str) -> Tuple[List, List, float]:
     """Process a single assembly file using multiple processes."""
-    # Get optimal number of processes
-    num_processes = max(1, os.cpu_count() - 1)  # Leave one core free for system
-    
-    # Create process pool
+    num_processes = max(1, os.cpu_count() - 1)
     start_time = time.time()
     
-    # Prepare chunks for processing
     chunks = [(chr_name, sequence, chunk_start, aluy_sequence) 
              for chr_name, sequence, chunk_start in read_fasta_chunks(filename)]
     
-    # Process chunks in parallel
     exact_matches = []
     inexact_matches = []
     
     with mp.Pool(processes=num_processes) as pool:
         results = pool.map(process_chunk, chunks)
         
-        # Collect results
         for exact, inexact in results:
             exact_matches.extend(exact)
             inexact_matches.extend(inexact)
+    
+    # Write results to files
+    assembly_name = filename.split('.')[0]
+    write_matches_to_file(exact_matches, f'{assembly_name}_exact_matches.tsv', 'exact')
+    write_matches_to_file(inexact_matches, f'{assembly_name}_inexact_matches.tsv', 'inexact')
     
     processing_time = time.time() - start_time
     return exact_matches, inexact_matches, processing_time
@@ -193,6 +209,9 @@ def main():
     # Process each assembly
     assemblies = ['hg38.zip', 'T2T.zip']
     
+    print("Starting AluY finder...")
+    print(f"Results will be saved in the 'results' directory")
+    
     for assembly in assemblies:
         print(f"\nProcessing {assembly}:")
         try:
@@ -203,10 +222,13 @@ def main():
             # Report results
             print(f"Exact matches found: {len(exact_matches)}")
             print(f"Inexact matches found: {len(inexact_matches)}")
+            print(f"Results saved to:")
+            print(f"  - results/{assembly.split('.')[0]}_exact_matches.tsv")
+            print(f"  - results/{assembly.split('.')[0]}_inexact_matches.tsv")
             print(f"Processing time: {processing_time:.2f} seconds")
             
             # Report memory usage
-            memory_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024  # Convert to MB
+            memory_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
             print(f"Peak memory usage: {memory_usage:.2f} KB")
             
         except Exception as e:
