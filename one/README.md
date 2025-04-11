@@ -1,4 +1,4 @@
-# CS249 Spring 2025: Metagenomic Classification with k-mer Indexes and Minimizers
+# Metagenomic Classification with k-mer Indexes and Minimizers
 
 This repository contains the implementation for CS249 Spring 2025 Assignment 1, which focuses on metagenomic classification methods using k-mer indexes, minimizers, and comparison with established bioinformatics tools.
 
