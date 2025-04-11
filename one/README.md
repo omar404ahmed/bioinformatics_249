@@ -308,6 +308,18 @@ Key features:
 - Visualization showing clear separation between environmental sources
 - Performance comparison between Kraken2 and custom implementations
 
+## System Specifications
+
+All experiments were run on the following system:
+
+**Apple MacBook Air (M1, 2020)**
+- Processor: Apple M1 chip (8-core CPU with 4 performance cores and 4 efficiency cores)
+- Memory: 8GB unified memory
+- Storage: 256GB SSD
+- Operating System: macOS Sequoia 15.3.2
+
+Using this relatively modest hardware configuration demonstrates the efficiency of the implemented algorithms and their suitability for resource-constrained environments. The memory-efficient approaches were almost a necessity given the 8GB RAM limitation.
+
 ## Troubleshooting
 
 ### Common Issues
@@ -334,6 +346,16 @@ If you encounter issues not covered here, please:
 1. Check the error messages for specific guidance
 2. Review the script code for configuration options
 
+
+## Acknowledgements
+
+I would like to express my sincere gratitude to:
+
+- Professor Robert Hoehndorf for his excellent guidance and instruction throughout this course
+- The Teaching Assistants Fernando and Rund for their valuable feedback and assistance
+- Mohammad Ashhad for his help with Task 3 implementation and troubleshooting
+
+Their support was instrumental in the successful completion of this assignment.
 
 ## References
 
