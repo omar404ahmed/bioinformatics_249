@@ -1,6 +1,6 @@
 # Metagenomic Classification with k-mer Indexes and Minimizers
 
-This repository contains the implementation for CS249 Spring 2025 Assignment 1, which focuses on metagenomic classification methods using k-mer indexes, minimizers, and comparison with established bioinformatics tools.
+This repository contains the implementation for CS249 Spring 2025 Assignment 1, which focuses on metagenomic classification methods using k-mer indexes, minimizers, and comparison with established bioinformatics tools. The [report](report.pdf) outlines the implementation undertaken to achieve the objectives and the strategies employed. 
 
 ## Overview
 
@@ -123,7 +123,7 @@ For handling reads that match multiple organisms, a reasonable strategy is to:
 
 The repository includes two implementations for efficient exact matching:
 
-#### Memory-Efficient FM-Index (`memory_efficient_fm.py`)
+#### Memory-Efficient FM-Index ([memory_efficient_fm.py](memory_efficient_fm.py))
 
 This implementation provides a memory-efficient FM-Index structure for string matching:
 
@@ -137,7 +137,7 @@ Key features of this implementation:
 - Implements FM-Index with sampled suffix arrays to reduce memory footprint
 - Provides functions for exact matching and matching with mismatches
 
-#### Resource-Efficient Matching (`resource_efficient_matching.py`)
+#### Resource-Efficient Matching ([resource_efficient_matching.py](resource_efficient_matching.py))
 
 This script implements a parallelized approach to match reads against reference genomes:
 
@@ -158,7 +158,7 @@ Key features:
 
 ### Task 1.4: Comparison with BLASTN
 
-The `blastn_script.py` script provides a comparison with BLAST for read classification:
+The [blastn_script.py](blastn_script.py) script provides a comparison with BLAST for read classification:
 
 ```bash
 cd task1_string_matching
@@ -176,7 +176,7 @@ This script:
 
 ### Task 2.1: Build the k-mer Index
 
-The script `build_kmer_index.py` constructs a k-mer index from the reference genomes:
+The script [build_kmer_index.py](build_kmer_index.py) constructs a k-mer index from the reference genomes:
 
 ```bash
 cd task2_kmer_index
@@ -196,7 +196,7 @@ Expected output includes:
 
 ### Task 2.2: Implement Classification
 
-The script `classify_reads.py` uses the k-mer index to classify reads:
+The script [classify_reads.py](classify_reads.py) uses the k-mer index to classify reads:
 
 ```bash
 cd task2_kmer_index
@@ -213,11 +213,11 @@ Key features:
 
 ### Task 2.3: Minimizers
 
-The script `kmer-minimizer-implementation.py` implements a minimizer-based approach to reduce memory requirements:
+The script [kmer-minimizer-implementation.py](kmer-minimizer-implementation.py) implements a minimizer-based approach to reduce memory requirements:
 
 ```bash
 cd task2_kmer_index
-python kmer-minimizer-implementation.py --reads ../sequencing_reads/simulated_reads_no_errors_10k_R1.fastq ../sequencing_reads/simulated_reads_no_errors_10k_R2.fastq --k 31 --w 10 --threshold 0.1
+python kmer-minimizer-implementation.py --reads ../sequencing_reads/simulated_reads_no_errors_10k_R1.fastq ../sequencing_reads/simulated_reads_no_errors_10k_R2.fastq --k 31 --w 10 --threshold 1
 ```
 
 Key features:
@@ -260,7 +260,7 @@ cd task3_kraken2
 python download_process_sra.py --workdir ./kraken2_workdir --threads 4
 ```
 
-Or using the simplified version:
+Or using [simple_process_sra.py](simple_process_sra.py) in case SRA files are already downloaded:
 
 ```bash
 cd task3_kraken2
@@ -275,7 +275,7 @@ These scripts:
 
 #### Analyzing Metagenomic Data
 
-The script `metagenomic_analysis.py` provides tools for analyzing and visualizing the Kraken2 results:
+The script [metagenomic_analysis.py](metagenomic_analysis.py) provides tools for analyzing and visualizing the Kraken2 results:
 
 ```bash
 cd task3_kraken2
