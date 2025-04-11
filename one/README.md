@@ -15,7 +15,6 @@ In metagenomics, DNA sequence reads come from multiple organisms simultaneously,
 
 ```
 .
-├── README.md                           # This file
 ├── reference_genomes/                  # Reference genome FASTA files
 │   ├── e_coli.fna
 │   ├── b_subtilis.fna
