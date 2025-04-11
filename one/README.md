@@ -13,6 +13,7 @@ In metagenomics, DNA sequence reads come from multiple organisms simultaneously,
 
 ## Repository Structure
 
+```
 .
 ├── README.md                           # This file
 ├── reference_genomes/                  # Reference genome FASTA files
@@ -43,6 +44,8 @@ In metagenomics, DNA sequence reads come from multiple organisms simultaneously,
     ├── download_process_sra.py         # Script to download and process SRA samples
     ├── simple_process_sra.py           # Simplified SRA processing script
     └── metagenomic_analysis.py         # Analysis of Kraken2 results
+
+```
 
 ## Dependencies
 
