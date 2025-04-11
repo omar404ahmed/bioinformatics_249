@@ -11,26 +11,38 @@ In metagenomics, DNA sequence reads come from multiple organisms simultaneously,
 3. **Minimizers**: Implementing memory-efficient indexing with minimizers
 4. **Real-world Applications**: Using Kraken2 for taxonomic classification of both simulated and real metagenomic samples
 
-## Recommended Directory Structure
+## Repository Structure
 
-```
 .
+├── README.md                           # This file
 ├── reference_genomes/                  # Reference genome FASTA files
 │   ├── e_coli.fna
 │   ├── b_subtilis.fna
 │   ├── p_aeruginosa.fna
 │   ├── s_aureus.fna
 │   └── m_tuberculosis.fna
-└── sequencing_reads/                   # Simulated reads (both error-free and with errors)
-    ├── simulated_reads_no_errors_10k_R1.fastq
-    ├── simulated_reads_no_errors_10k_R2.fastq
-    ├── simulated_reads_miseq_10k_R1.fastq
-    ├── simulated_reads_miseq_10k_R2.fastq
-    ├── simulated_reads_no_errors_10k_R1.fasta
-    ├── simulated_reads_no_errors_10k_R2.fasta
-    ├── simulated_reads_miseq_10k_R1.fasta
-    └── simulated_reads_miseq_10k_R2.fasta
-```
+├── sequencing_reads/                   # Simulated reads (both error-free and with errors)
+│   ├── simulated_reads_no_errors_10k_R1.fastq
+│   ├── simulated_reads_no_errors_10k_R2.fastq
+│   ├── simulated_reads_miseq_10k_R1.fastq
+│   ├── simulated_reads_miseq_10k_R2.fastq
+│   ├── simulated_reads_no_errors_10k_R1.fasta
+│   ├── simulated_reads_no_errors_10k_R2.fasta
+│   ├── simulated_reads_miseq_10k_R1.fasta
+│   └── simulated_reads_miseq_10k_R2.fasta
+├── task1_string_matching/              # Task 1 implementation files
+│   ├── memory_efficient_fm.py          # FM-Index implementation
+│   ├── resource_efficient_matching.py  # Efficient string matching implementation
+│   └── blastn_script.py                # BLAST comparison script
+├── task2_kmer_index/                   # Task 2 implementation files
+│   ├── build_kmer_index.py             # K-mer index construction
+│   ├── classify_reads.py               # Classification using k-mer index
+│   └── kmer-minimizer-implementation.py # Minimizer-based k-mer index
+└── task3_kraken2/                      # Task 3 implementation files
+    ├── kraken2_implementation.py       # Kraken2 database construction and classification
+    ├── download_process_sra.py         # Script to download and process SRA samples
+    ├── simple_process_sra.py           # Simplified SRA processing script
+    └── metagenomic_analysis.py         # Analysis of Kraken2 results
 
 ## Dependencies
 
