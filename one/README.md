@@ -11,7 +11,7 @@ In metagenomics, DNA sequence reads come from multiple organisms simultaneously,
 3. **Minimizers**: Implementing memory-efficient indexing with minimizers
 4. **Real-world Applications**: Using Kraken2 for taxonomic classification of both simulated and real metagenomic samples
 
-## Repository Structure
+## Recommended Directory Structure
 
 ```
 .
