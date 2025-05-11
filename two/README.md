@@ -132,6 +132,9 @@ Parameters:
 - `--sketch-size`: Sketch size for MinHash (default: 100)
 - `--threads`: Number of CPU cores to use (default: 1, use 0 for all available cores)
 
+
+
+
 ### Example Commands
 
 #### Synthetic Dataset
@@ -146,8 +149,6 @@ python debrujin_assembler.py -k 35 -i data/synthetic/reads_r.fastq -o results/db
 # De Bruijn Graph assembly on reads_r.fastq with k=47
 python debrujin_assembler.py -k 45 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k45.fasta -g results/dbg/graph_r_k45.gfa
 
-# OLC assembly on reads_b.fastq
-python olc_assembler_v2.py --fastq data/synthetic/reads_b.fastq --output results/olc/contigs_b --min-overlap 30 --threads 4
 ```
 
 #### MERS Dataset
@@ -164,6 +165,22 @@ python src/olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --out
 
 # OLC assembly on ONT reads with errors
 python src/olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output results/olc/mers_ont_with_error --min-overlap 30 --threads 8
+```
+
+### SPAdes Assembler
+
+```
+# HiSeq reads with errors
+spades.py -s synthetic_dataset/reads_hiseq_5k.fastq -o spades_hiseq_error
+
+# HiSeq reads without errors
+spades.py -s synthetic_dataset/no_error_reads_hiseq_5k.fastq -o spades_hiseq_noerror
+
+# ONT reads with errors
+spades.py -s synthetic_dataset/ont_hq_50x.fastq -o spades_ont_error
+
+# ONT reads without errors
+spades.py -s synthetic_dataset/no_error_ont_hq_50x.fastq -o spades_ont_noerror
 ```
 
 ### Verkko Assembly
@@ -184,11 +201,20 @@ QUAST is used to evaluate the quality of genome assemblies.
 
 ```bash
 # Basic QUAST evaluation
-quast.py -o results/evaluation/quast_results -r data/synthetic/reference_r.fasta results/dbg/contigs_r_k35.fasta results/dbg/contigs_r_k45.fasta
+quast.py -o results/evaluation/quast_results -r data/synthetic/reference_r.fasta results/dbg/contigs_r_k37.fasta results/dbg/contigs_r_k47.fasta
 
 # QUAST evaluation for MERS assemblies
 quast.py -o results/evaluation/quast_mers -r data/mers/GCF_000901155.1_ViralProj183710_genomic.fna results/dbg/mers_hiseq_no_error.fasta results/olc/mers_ont_no_error.fasta
+
+quast.py -r GCF_000901155.1_ViralProj183710_genomic.fna \
+  error_hiseq_k31.fasta noerror_hiseq_k31.fasta \
+  error_ont_k31.fasta noerror_ont_k31.fasta \
+  error_ont_ultrapermissible.fasta noerror_ont.fasta \
+  error_hiseq_30_0.9.fasta noerror_hiseq.fasta \
+  -o quast_comparison_error_noerror
+
 ```
+
 
 For lizard assembly on Ibex, use the provided script:
 
@@ -220,7 +246,7 @@ All datasets are available at https://bio2vec.cbrc.kaust.edu.sa/data/mowl/cs249_
 
 ### Synthetic Datasets
 
-- Synthetic Dataset 1:
+- Synthetic Dataset 1: (Toy Dataset)
   - `reference_r.fasta`: Reference sequence 1
   - `reads_r.fastq`: First set of simulated reads
   - `reference_b.fasta`: Reference sequence 2
@@ -375,39 +401,39 @@ Estimated error rate: 0.0000631 errors per base
 ### Inspector Output Example
 
 ```
-Statics of contigs:
-Number of contigs       3132
-Number of contigs > 10000 bp    3128
-Number of contigs >1000000 bp   1155
-Total length    3491931429
+Statistics of contigs:
+Number of contigs                       3132
+Number of contigs > 10000 bp            3128
+Number of contigs >1000000 bp           1155
+Total length                            3491931429
 Total length of contigs > 10000 bp      3491896167
 Total length of contigs >1000000bp      2696718955
-Longest contig  12917798
-Second longest contig length    11796973
-N50     2044959
-N50 of contigs >1Mbp    2044959
+Longest contig                          12917798
+Second longest contig length            11796973
+N50                                     2044959
+N50 of contigs >1Mbp                    2044959
 
 Read to Contig alignment:
-Mapping rate /% 99.99
-Split-read rate /%      0.74
-Depth   8.6146
+Mapping rate /%                         99.99
+Split-read rate /%                      0.74
+Depth                                   8.6146
 Mapping rate in large contigs /%        78.14
 Split-read rate in large contigs /%     0.59
-Depth in large conigs   8.7258
+Depth in large conigs                   8.7258
 
-Structural error        47
-Expansion       21
-Collapse        26
-Haplotype switch        0
-Inversion       0
+Structural error                        47
+Expansion                               21
+Collapse                                26
+Haplotype switch                        0
+Inversion                               0
 
 Small-scale assembly error /per Mbp     35.0130685888
 Total small-scale assembly error        122262
-Base substitution       102782
-Small-scale expansion   10670
-Small-scale collapse    8810
+Base substitution                       102782
+Small-scale expansion                   10670
+Small-scale collapse                    8810
 
-QV      44.1279647878
+QV                                      44.1279647878
 ```
 
 
