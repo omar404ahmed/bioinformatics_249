@@ -148,10 +148,10 @@ Parameters:
 python debrujin_assembler.py -k 40 -i data/synthetic/reads_b.fastq -o results/dbg/contigs_b_k40.fasta -g results/dbg/graph_b_k40.gfa
 
 # De Bruijn Graph assembly on reads_r.fastq with k=37
-python debrujin_assembler.py -k 35 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k35.fasta -g results/dbg/graph_r_k35.gfa
+python debrujin_assembler.py -k 37 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k37.fasta -g results/dbg/graph_r_k37.gfa
 
 # De Bruijn Graph assembly on reads_r.fastq with k=47
-python debrujin_assembler.py -k 45 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k45.fasta -g results/dbg/graph_r_k45.gfa
+python debrujin_assembler.py -k 47 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k47.fasta -g results/dbg/graph_r_k47.gfa
 
 ```
 
@@ -162,13 +162,25 @@ python debrujin_assembler.py -k 45 -i data/synthetic/reads_r.fastq -o results/db
 python debrujin_assembler.py -k 31 -i data/mers/no_error_reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_no_error.fasta
 
 # De Bruijn Graph assembly on HiSeq reads with errors
-python ebrujin_assembler.py -k 31 -i data/mers/reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_with_error.fasta
+python debrujin_assembler.py -k 31 -i data/mers/reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_with_error.fasta
+
+# De Bruijn Graph assembly on error-free ONT reads
+python debrujin_assembler.py -k 31 -i data/mers/no_error_ont_hq_50x.fastq -o results/dbg/mers_ont_no_error.fasta
+
+# De Bruijn Graph assembly on ONT reads with errors
+python debrujin_assembler.py -k 31 -i data/mers/ont_hq_50x.fastq -o results/dbg/mers_ont_with_error.fasta
+
+# OLC assembly on error-free HiSeq reads
+python olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --output olc_noerror_hiseq --min-overlap 30 --min-identity 0.9 --threads 8
+
+# OLC assembly on HiSeq reads with errors
+python olc_assembler_v2.py --fastq data/mers/reads_hiseq_5k.fastq --output olc_error_hiseq --min-overlap 30 --min-identity 0.9 --threads 8
 
 # OLC assembly on error-free ONT reads
-python src/olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --output results/olc/mers_ont_no_error --min-overlap 30 --threads 8
+python olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --output olc_noerror_ont --min-overlap 30 --threads 8
 
-# OLC assembly on ONT reads with errors
-python src/olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output results/olc/mers_ont_with_error --min-overlap 30 --threads 8
+# OLC assembly on ONT reads with errors (ultrapermissible parameters)
+python olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output olc_error_ont --min-overlap 15 --min-identity 0.75 --threads 8 --kmer-size 8 --sketch-size 250
 ```
 
 #### SPAdes Assembler
