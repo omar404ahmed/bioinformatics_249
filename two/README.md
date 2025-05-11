@@ -1,6 +1,6 @@
 # Genome Assembly and Evaluation
 
-This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2 (CS249, April 2025). The [report](report2.pdf) outlines the implementation undertaken to achieve the objectives and the strategies employed.
+This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2 (CS249, April 2025). The [report](report2.pdf) outlines the implementation undertaken to achieve the objectives, strategies employed and analysis of the results.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -394,7 +394,7 @@ frequency        kmers     distinct        total       (1e-6)
 
 
 ```
-File Name :merqury_summary
+File Name :merqury_summary.txt
 ==============================================================
 Scincus mitranus (Sandfish) Genome Assembly - Merqury Evaluation
 ==============================================================
@@ -417,6 +417,7 @@ Estimated error rate: 0.0000631 errors per base
 ### Inspector Output Example
 
 ```
+File Name: summary_statistics
 Statistics of contigs:
 Number of contigs                       3132
 Number of contigs > 10000 bp            3128
