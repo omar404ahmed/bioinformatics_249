@@ -1,6 +1,6 @@
 # Genome Assembly and Evaluation
 
-This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2 (CS249, April 2025).
+This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2 (CS249, April 2025). The [report](report2.pdf) outlines the implementation undertaken to achieve the objectives and the strategies employed.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -77,16 +77,16 @@ module load meryl merqury
 ```
 genome-assembly/
 ├── README.md
-├── src/
-│   ├── debrujin_assembler.py
-│   └── olc_assembler_v2.py
-├── scripts/
+├── debrujin_assembler.py
+├── olc_assembler_v2.py
+├── ibex_scripts/
 │   ├── quast_script.sh
 │   ├── merqury_script.sh
 │   ├── verkko_assembly.sh
+│   ├── verkko1_assembly.sh
 │   └── inspec_script.sh
 ├── data/
-│   ├── synthetic/
+│   ├── toy_dataset/
 │   │   ├── reference_r.fasta
 │   │   ├── reads_r.fastq
 │   │   ├── reference_b.fasta
@@ -96,13 +96,7 @@ genome-assembly/
 │   │   ├── no_error_reads_hiseq_5k.fastq
 │   │   ├── no_error_ont_hq_50x.fastq
 │   │   ├── reads_hiseq_5k.fastq
-│   │   └── ont_hq_50x.fastq
-│   └── real/
-│       └── ... (SRA accession files)
-└── results/
-    ├── dbg/
-    ├── olc/
-    └── evaluation/
+└── └── └── ont_hq_50x.fastq
 ```
 
 ## Usage
@@ -112,7 +106,7 @@ genome-assembly/
 The De Bruijn Graph assembler takes FASTQ files as input, constructs a de Bruijn graph from k-mers, identifies contigs, and outputs them as a FASTA file.
 
 ```bash
-python src/debrujin_assembler.py -k <kmer_size> -i <input_fastq_files> -o <output_fasta> [-g <output_gfa>]
+python debrujin_assembler.py -k <kmer_size> -i <input_fastq_files> -o <output_fasta> [-g <output_gfa>]
 ```
 
 Parameters:
@@ -126,7 +120,7 @@ Parameters:
 The OLC assembler takes FASTQ files as input, computes all-vs-all read overlaps, constructs an overlap graph, and generates a consensus sequence for each contig.
 
 ```bash
-python src/olc_assembler_v2.py --fastq <input_fastq_files> --output <output_prefix> [--min-overlap <min_overlap>] [--min-identity <min_identity>] [--kmer-size <kmer_size>] [--sketch-size <sketch_size>] [--threads <threads>]
+python olc_assembler_v2.py --fastq <input_fastq_files> --output <output_prefix> [--min-overlap <min_overlap>] [--min-identity <min_identity>] [--kmer-size <kmer_size>] [--sketch-size <sketch_size>] [--threads <threads>]
 ```
 
 Parameters:
@@ -144,33 +138,43 @@ Parameters:
 
 ```bash
 # De Bruijn Graph assembly on reads_b.fastq with k=40
-python src/debrujin_assembler.py -k 40 -i data/synthetic/reads_b.fastq -o results/dbg/contigs_b_k40.fasta -g results/dbg/graph_b_k40.gfa
+python debrujin_assembler.py -k 40 -i data/synthetic/reads_b.fastq -o results/dbg/contigs_b_k40.fasta -g results/dbg/graph_b_k40.gfa
 
-# De Bruijn Graph assembly on reads_r.fastq with k=35
-python src/debrujin_assembler.py -k 35 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k35.fasta -g results/dbg/graph_r_k35.gfa
+# De Bruijn Graph assembly on reads_r.fastq with k=37
+python debrujin_assembler.py -k 35 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k35.fasta -g results/dbg/graph_r_k35.gfa
 
-# De Bruijn Graph assembly on reads_r.fastq with k=45
-python src/debrujin_assembler.py -k 45 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k45.fasta -g results/dbg/graph_r_k45.gfa
+# De Bruijn Graph assembly on reads_r.fastq with k=47
+python debrujin_assembler.py -k 45 -i data/synthetic/reads_r.fastq -o results/dbg/contigs_r_k45.fasta -g results/dbg/graph_r_k45.gfa
 
 # OLC assembly on reads_b.fastq
-python src/olc_assembler_v2.py --fastq data/synthetic/reads_b.fastq --output results/olc/contigs_b --min-overlap 30 --threads 4
+python olc_assembler_v2.py --fastq data/synthetic/reads_b.fastq --output results/olc/contigs_b --min-overlap 30 --threads 4
 ```
 
 #### MERS Dataset
 
 ```bash
 # De Bruijn Graph assembly on error-free HiSeq reads
-python src/debrujin_assembler.py -k 31 -i data/mers/no_error_reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_no_error.fasta
+python debrujin_assembler.py -k 31 -i data/mers/no_error_reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_no_error.fasta
 
 # De Bruijn Graph assembly on HiSeq reads with errors
-python src/debrujin_assembler.py -k 31 -i data/mers/reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_with_error.fasta
+python ebrujin_assembler.py -k 31 -i data/mers/reads_hiseq_5k.fastq -o results/dbg/mers_hiseq_with_error.fasta
 
 # OLC assembly on error-free ONT reads
-python src/olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --output results/olc/mers_ont_no_error --min-overlap 50 --threads 4
+python src/olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --output results/olc/mers_ont_no_error --min-overlap 30 --threads 8
 
 # OLC assembly on ONT reads with errors
-python src/olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output results/olc/mers_ont_with_error --min-overlap 50 --threads 4
+python src/olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output results/olc/mers_ont_with_error --min-overlap 30 --threads 8
 ```
+
+### Verkko Assembly
+
+For the Scincus mitranus genome assembly:
+
+```bash
+# Run Verkko assembly
+sbatch scripts/verkko_assembly.sh
+```
+
 
 ## Evaluation Tools
 
@@ -186,7 +190,7 @@ quast.py -o results/evaluation/quast_results -r data/synthetic/reference_r.fasta
 quast.py -o results/evaluation/quast_mers -r data/mers/GCF_000901155.1_ViralProj183710_genomic.fna results/dbg/mers_hiseq_no_error.fasta results/olc/mers_ont_no_error.fasta
 ```
 
-For large assemblies on Ibex, use the provided script:
+For lizard assembly on Ibex, use the provided script:
 
 ```bash
 sbatch scripts/quast_script.sh
@@ -208,15 +212,6 @@ Inspector is used to detect mis-assemblies.
 ```bash
 # Run Inspector
 sbatch scripts/inspec_script.sh
-```
-
-### Verkko Assembly
-
-For the Scincus mitranus genome assembly:
-
-```bash
-# Run Verkko assembly
-sbatch scripts/verkko_assembly.sh
 ```
 
 ## Datasets
@@ -302,6 +297,7 @@ L50: 1
 ### QUAST Output Example
 
 ```
+File name: report.txt
 All statistics are based on contigs of size >= 500 bp, unless otherwise noted (one contig is here)
 Assembly                   contigs_r_k35
 # contigs (>= 0 bp)        1             
@@ -328,18 +324,90 @@ Duplication ratio          1.00
 ### Merqury Output Example
 
 ```
+File name: kmer_statistics
+Number of 21-mers that are:
+  unique             1061469078  (exactly one instance of the kmer is in the input)
+  distinct           3038087090  (non-redundant kmer sequences in the input)
+  present           30047684002  (...)
+  missing         4395008424014  (non-redundant kmer sequences not in the input)
+
+             number of   cumulative   cumulative     presence
+              distinct     fraction     fraction   in dataset
+frequency        kmers     distinct        total       (1e-6)
+--------- ------------ ------------ ------------ ------------
+        1   1061469078       0.3494       0.0353     0.000033
+        2     86983649       0.3780       0.0411     0.000067
+        3     48863965       0.3941       0.0460     0.000100
+        4     64592613       0.4154       0.0546     0.000133
+        5     87314410       0.4441       0.0691     0.000166
+        6    106305236       0.4791       0.0903     0.000200
+        7    118430368       0.5181       0.1179     0.000233
+        8    122489427       0.5584       0.1506     0.000266
+        9    119818168       0.5978       0.1864     0.000300
+...
+  8240005            1       1.0000       0.9994   274.230952
+  8983451            1       1.0000       0.9997   298.973159
+  9061269            1       1.0000       1.0000   301.562976
+```
+
+
+```
+File Name :merqury_summary
+==============================================================
+Scincus mitranus (Sandfish) Genome Assembly - Merqury Evaluation
+==============================================================
+Date: Saturday 10 May 2025 11:31:40 PM +03
+
 K-MER ANALYSIS AND QV SCORE
 ---------------------------
 Assembly file: /ibex/user/ahmedo/backup_assembly/verkko/assembly.fasta
 HiFi reads: /ibex/reference/course/cs249/lizard/input/pacbio/lizard_liver_seq.fastq.gz
 K-mer size: 21
 
-QV Score: 42.3
+QV Score: 42
 (QV is a log-scaled measure of the assembly's base-level accuracy)
 
-Estimated error rate: 0.000059
+Estimated error rate: 0.0000631 errors per base
 (Lower error rate indicates higher accuracy)
 ```
+
+
+### Inspector Output Example
+Statics of contigs:
+Number of contigs       3132
+Number of contigs > 10000 bp    3128
+Number of contigs >1000000 bp   1155
+Total length    3491931429
+Total length of contigs > 10000 bp      3491896167
+Total length of contigs >1000000bp      2696718955
+Longest contig  12917798
+Second longest contig length    11796973
+N50     2044959
+N50 of contigs >1Mbp    2044959
+
+Read to Contig alignment:
+Mapping rate /% 99.99
+Split-read rate /%      0.74
+Depth   8.6146
+Mapping rate in large contigs /%        78.14
+Split-read rate in large contigs /%     0.59
+Depth in large conigs   8.7258
+
+Structural error        47
+Expansion       21
+Collapse        26
+Haplotype switch        0
+Inversion       0
+
+Small-scale assembly error /per Mbp     35.0130685888
+Total small-scale assembly error        122262
+Base substitution       102782
+Small-scale expansion   10670
+Small-scale collapse    8810
+
+QV      44.1279647878
+
+
 
 ## Troubleshooting
 
