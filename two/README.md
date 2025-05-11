@@ -1,6 +1,6 @@
 # Genome Assembly and Evaluation
 
-This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2 (CS249, April 2025). The [report](report2.pdf) outlines the implementation undertaken to achieve the objectives, strategies employed and analysis of the results.
+This repository contains implementations of genome assembly algorithms and evaluation scripts for the Bioinformatics Algorithms Assignment 2. The [report](report2.pdf) outlines the implementation undertaken to achieve the objectives, strategies employed and analysis of the results.
 
 ## Table of Contents
 - [Introduction](#introduction)
