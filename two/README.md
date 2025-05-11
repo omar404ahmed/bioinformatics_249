@@ -10,6 +10,10 @@ This repository contains implementations of genome assembly algorithms and evalu
   - [De Bruijn Graph Assembler](#de-bruijn-graph-assembler)
   - [Overlap-Layout-Consensus Assembler](#overlap-layout-consensus-assembler)
   - [Example Commands](#example-commands)
+    - [Synthetic Dataset](#synthetic-dataset)
+    - [MERS Dataset](#mers-dataset)
+    - [SPAdes Assembler](#spades-assembler)
+    - [Verkko Assembler](#verkko-assembler)
 - [Evaluation Tools](#evaluation-tools)
   - [QUAST](#quast)
   - [Merqury](#merqury)
@@ -167,7 +171,7 @@ python src/olc_assembler_v2.py --fastq data/mers/no_error_ont_hq_50x.fastq --out
 python src/olc_assembler_v2.py --fastq data/mers/ont_hq_50x.fastq --output results/olc/mers_ont_with_error --min-overlap 30 --threads 8
 ```
 
-### SPAdes Assembler
+#### SPAdes Assembler
 
 ```
 # HiSeq reads with errors
@@ -183,7 +187,7 @@ spades.py -s synthetic_dataset/ont_hq_50x.fastq -o spades_ont_error
 spades.py -s synthetic_dataset/no_error_ont_hq_50x.fastq -o spades_ont_noerror
 ```
 
-### Verkko Assembly
+#### Verkko Assembler
 
 For the Scincus mitranus genome assembly:
 
