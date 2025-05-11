@@ -38,7 +38,7 @@ The repository also contains scripts for evaluating assemblies using QUAST, Merq
 - NumPy
 - QUAST (for evaluation)
 - Bandage (for graph visualization)
-- Merqury (for k-mer evaluation)
+- Merqury (for k-mer evaluation and QV score)
 - Inspector (for mis-assembly detection)
 - Verkko (for advanced assembly)
 
@@ -46,7 +46,7 @@ The repository also contains scripts for evaluating assemblies using QUAST, Merq
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/genome-assembly.git
+git clone https://github.com/omar404ahmed/bioinformatics_249/tree/main/two
 cd genome-assembly
 
 # Create a conda environment (recommended)
