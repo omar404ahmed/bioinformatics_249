@@ -373,6 +373,8 @@ Estimated error rate: 0.0000631 errors per base
 
 
 ### Inspector Output Example
+
+```
 Statics of contigs:
 Number of contigs       3132
 Number of contigs > 10000 bp    3128
@@ -406,7 +408,7 @@ Small-scale expansion   10670
 Small-scale collapse    8810
 
 QV      44.1279647878
-
+```
 
 
 ## Troubleshooting
