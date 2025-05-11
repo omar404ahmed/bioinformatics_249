@@ -30,7 +30,7 @@ This project implements two fundamental genome assembly algorithms:
 1. **De Bruijn Graph (DBG) Assembly**: Constructs a de Bruijn graph from k-mers and identifies contigs by finding Eulerian paths.
 2. **Overlap-Layout-Consensus (OLC) Assembly**: Computes all-vs-all read overlaps, constructs an overlap graph, and generates a consensus sequence for each contig.
 
-The repository also contains scripts for evaluating assemblies using QUAST, Merqury, and Inspector, as well as a Verkko assembly pipeline for a more advanced assembly of the Scincus mitranus (sandfish lizard) genome.
+The repository also contains scripts for evaluating assemblies using QUAST, Merqury, and Inspector, as well as a Verkko assembly pipeline for a more advanced assembly of the Scincus mitranus (sandfish lizard) genome. The Verkko Assembly of Scincus mitranus is accessible through this Drive [link](https://drive.google.com/drive/folders/1AE6ePrxW9tPvBd0jzjBY85i34_TYdbAi?usp=sharing).
 
 ## Installation
 
