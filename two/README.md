@@ -83,6 +83,7 @@ genome-assembly/
 ├── README.md
 ├── debrujin_assembler.py
 ├── olc_assembler_v2.py
+├── report2.pdf
 ├── ibex_scripts/
 │   ├── quast_script.sh
 │   ├── merqury_script.sh
